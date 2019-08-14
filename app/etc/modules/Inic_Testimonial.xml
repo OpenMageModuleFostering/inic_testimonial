@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * @category    IndiaNic
+ * @package     Inic_Testimonial
+ */
+-->
+<config>
+    <modules>
+        <Inic_Testimonial>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Inic_Testimonial>
+    </modules>
+</config>

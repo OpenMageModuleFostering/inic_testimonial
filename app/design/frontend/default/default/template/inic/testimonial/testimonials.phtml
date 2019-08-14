@@ -1,0 +1,189 @@
+<?php
+/* $configContactNameValue = Mage::getStoreConfig('testimonialsection/testisettings/active');
+ echo $configContactNameValue;exit;*/
+?>
+<?php 
+$configEnableValue = Mage::getStoreConfig('testimonialsection/testisettings/activetesty');
+$enableguest = Mage::getStoreConfig('testimonialsection/testisettings/enableguest');
+$helper = Mage::helper('testimonial');
+if($configEnableValue == 1 ):
+if($enableguest == 1 ):
+
+?>
+
+
+<a id="testy-create" class="fancybox" onclick='jQuery.fancybox({"href" : "#info-testy-create",scrolling: "no", afterClose: function() { jQuery("div").remove(".validation-advice"); jQuery("div.input-box input,div.input-box textarea").removeClass("validation-failed"); } });' title="<?php echo Mage::helper('testimonial')->__('Add Testimonial') ?>" href="javascript:void(0)"><?php echo Mage::helper('testimonial')->__('Add Testimonial') ?></a>
+<div id="info-testy-create" style="display:none;min-width:700px;min-height:400px;">
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="page-title">
+    <h1> <?php  echo $this->htmlEscape($this->helper('testimonial')->getTitle()) ?></h1>
+</div>
+
+<form action="<?php echo $this->getFormAction();  ?>" id="testyForm" method="post"  enctype="multipart/form-data">
+    <div class="fieldset_popup">
+        <ul class="form-list">
+        
+            <li class="fields">
+            <?php  if($helper->isEnableContactName()):?>
+                    <div class="field">
+                        <label for="testimonial_name" class="required"><em>*</em><?php echo Mage::helper('testimonial')->__('Name') ?></label>
+                        <div class="input-box">
+                            <input name="testimonial_name" id="testimonial_name" title="<?php echo Mage::helper('testimonial')->__('Name') ?>" value="<?php echo $this->htmlEscape($this->helper('testimonial')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                        </div>
+                    </div>
+                <?php endif;?>
+            <?php  if($helper->isEnableContactEmail()):?>
+                    <div class="field">
+                        <label for="testimonial_email" class="required"><em>*</em><?php echo Mage::helper('testimonial')->__('Email') ?></label>
+                        <div class="input-box">
+                            <input name="testimonial_email" id="testimonial_email" title="<?php echo Mage::helper('testimonial')->__('Email') ?>" value="<?php echo $this->htmlEscape($this->helper('testimonial')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="text" />
+                        </div>
+                    </div>
+                </li>
+            <?php endif;?>
+             <li class="fields">
+           <?php  if($helper->isEnableCompanyname()): ?>
+              <div class="field">
+                    <label for="testimonial_companyname"><?php echo Mage::helper('testimonial')->__('Comapny Name') ?></label>
+                    <div class="input-box">
+                        <input name="testimonial_companyname" id="testimonial_companyname" title="<?php echo Mage::helper('testimonial')->__('Company Name') ?>" value="" class="input-text" type="text" />
+                    </div>
+                </div>
+            
+              <?php endif;?>
+           <?php  if($helper->isEnableContactAddress()):?>
+               <div class="field">
+                    <label for="testimonial_address"><?php echo Mage::helper('testimonial')->__('Location') ?></label>
+                    <div class="input-box">
+                        <input name="testimonial_address" id="testimonial_address" title="<?php echo Mage::helper('testimonial')->__('Company Location') ?>" value="" class="input-text" type="text" />
+                    </div>
+                </div>
+           
+            <?php endif;?>
+           </li> 
+            <li class="wide">
+                <label for="testimonial_text" class="required"><em>*</em><?php echo Mage::helper('testimonial')->__('Content') ?></label>
+                <div class="input-box alignleft">
+                    <textarea name="testimonial_text" id="testimonial_text" title="<?php echo Mage::helper('testimonial')->__('Content') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+            </li>  
+            <?php  if($helper->isEnableContactPhoto()):?>
+            <li class="fields">
+                <label for="testimonial_img"><?php echo Mage::helper('testimonial')->__('Contact Photo') ?></label>
+                <div class="input-box alignleft">
+                    <input name="testimonial_img" id="testimonial_img" class="input-text" type="file" />
+                </div>
+          </li>
+          <?php endif;?>
+            
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo Mage::helper('testimonial')->__('* Required Fields') ?></p>
+        <button type="submit" title="<?php echo Mage::helper('testimonial')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('testimonial')->__('Submit') ?></span></span></button>
+        <button type="reset" class="button" value="<?php echo Mage::helper('testimonial')->__('Reset') ?>"><span><span><?php echo Mage::helper('testimonial')->__('Reset') ?></span></span></button>
+        
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var testyForm = new VarienForm('testyForm', true);
+//]]>
+</script>
+</div>
+
+
+<?php endif;?>
+<?php endif;?>
+<div class="testimonials_container">
+    <h1 class="testimonials_title">
+         <?php  echo $this->htmlEscape($this->helper('testimonial')->getTitle()) ?>
+    </h1>
+    <div class="testimonials">
+    <?php $testimonials = $this->getTestimonials(); ?>
+    <?php $i = 0;?>
+    <?php if (count($testimonials) > 0): ?>
+    <?php foreach ($testimonials as $testimonial): ?>
+    <div class="testimonial_<?php $i++; echo (is_int($i/2) ? "right" : "left")?>">
+        <?php  if($helper->isEnableContactPhoto()):?>
+          <div class="testimonial_image">
+           <?php 
+            $configHeightValue = Mage::getStoreConfig('testimonialsection/showhideform/height');
+             $configWidthValue = Mage::getStoreConfig('testimonialsection/showhideform/width');
+           ?>
+            <?php if ($testimonial->getTestimonialImg()): 
+            $resizeEndarray = explode("/",$testimonial->getTestimonialImg());
+            
+            ?>
+           
+              
+                 <img src="<?php echo  Mage::helper('testimonial')->resizeImage(end($resizeEndarray),$configHeightValue,$configWidthValue,'testimonials'); ?>"  alt="<?php echo $testimonial->getTestimonialName(); ?>" title="<?php echo $testimonial->getTestimonialName(); ?>"  class="testy_img"/> 
+              
+           
+            
+             <?php else: ?>
+                 <img src="<?php echo  $this->getSkinUrl('inic/testimonial/images/no-image.png') ?>" alt="<?php echo $testimonial->getTestimonialName(); ?>" title="<?php echo $testimonial->getTestimonialName(); ?>"  class="testy_no_img" height="<?php echo $configHeightValue.'px' ;?>" width="<?php echo $configWidthValue.'px' ;?>"/> 
+              
+             
+            <?php endif; ?>
+              </div>
+        <?php endif; ?>
+       
+         <div class="testimonial_content">
+              <?php echo $testimonial->getTestimonialText(); ?>
+              <?php  if($helper->isEnableContactName()):?>     
+              
+                         <h2><?php echo $testimonial->getTestimonialName(); ?></h2>     
+                     <?php endif;?>                                             
+            <?php  if($helper->isEnableContactEmail()&& $testimonial->getTestimonialEmail()!=''):?>
+                            <div class="icon_holder"><img src="<?php echo $this->getSkinUrl('inic/testimonial/images/email_icon.png')?>" width="20" height="20" /></div>
+                            <p class="text_holder"><?php echo $testimonial->getTestimonialEmail(); ?></p>     
+            <?php endif;?>  
+            <?php  if($helper->isEnableCompanyname() && $testimonial->getTestimonialCompanyname()!=''): ?>
+                <div class="icon_holder"><img src="<?php echo $this->getSkinUrl('inic/testimonial/images/company_icon.png')?>" width="20" height="20" /></div>
+                         <p class="text_holder"><?php echo $testimonial->getTestimonialCompanyname(); ?></p>  
+                         
+                  <?php endif;?>
+                  
+              <?php  if($helper->isEnableContactAddress()&& $testimonial->getTestimonialAddress()!=''):?>
+                  <div class="icon_holder"><img src="<?php echo $this->getSkinUrl('inic/testimonial/images/location_icon.png')?>" width="20" height="20" /></div>
+                 <p class="text_holder"><?php echo $testimonial->getTestimonialAddress(); ?></p> 
+             <?php endif;?>
+          </div>
+    </div>
+    <?php endforeach; ?>
+    <?php endif;?>
+    </div>                       
+   
+     <a  id='back-top' href="#top"><span></span><?php echo $this->__('Back to Top')?></a>
+                 
+     <?php $configContactNameValue = Mage::getStoreConfig('testimonialsection/testisettings/allowpagination');
+                    if($configContactNameValue == 1):  ?>     
+       <div class="testy_paging">
+                    <?php echo $this->getPagerHtml(); ?>
+            </div>
+     <?php endif;?>
+</div>
+<script>
+jQuery(document).ready(function(){
+    // hide #back-top first
+    jQuery("#back-top").hide();
+    // fade in #back-top
+    jQuery(function () {
+        jQuery(window).scroll(function () {
+            if (jQuery(this).scrollTop() > 100) {
+                jQuery('#back-top').fadeIn();
+            } else {
+                jQuery('#back-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        jQuery('#back-top').click(function () {
+           jQuery('body,html').animate({
+                scrollTop: 0
+            }, 1500);
+            return false;
+        });
+    });
+});
+</script>

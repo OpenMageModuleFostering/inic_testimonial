@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+    <default>
+    
+        <reference name="right">
+            <block type="testimonial/testimonial" name="right.testimonials" >
+                <action method="setSidebar">
+                    <sidebar>1</sidebar>
+                </action>
+                  <action method="setTemplate" ifconfig="testimonialsection/testyblock/layoutrighttype">
+                         <template>inic/testimonial/testimonials_sidebar.phtml</template>
+                  </action>
+            </block>
+        </reference>
+        <reference name="left">
+            <block type="testimonial/testimonial" name="left.testimonials" >
+                <action method="setSidebar">
+                    <sidebar>1</sidebar>
+                </action>
+                  <action method="setTemplate" ifconfig="testimonialsection/testyblock/layoutlefttype">
+                         <template>inic/testimonial/testimonials_leftsidebar.phtml</template>
+                  </action>
+            </block>
+        </reference>
+        <reference name="head">
+          <action method="addJs" ><script>testimonial/jquery-1.9.1.min.js</script></action>
+          <action method="addJs" ifconfig="testimonialsection/testyblock/enableslider"><script>testimonial/jquery.dd.min.js</script></action>
+          <action method="addJs" ifconfig="testimonialsection/testyblock/enableslider"><script>testimonial/jquery.bxslider.min.js</script></action>
+            <action method="addCss"><stylesheet>inic/testimonial/css/testimonial.css</stylesheet></action>
+            <action method="addCss" ifconfig="testimonialsection/testyblock/enableslider"><stylesheet>inic/testimonial/css/dd.css</stylesheet></action>
+            <action method="addCss" ifconfig="testimonialsection/testyblock/enableslider"><stylesheet>inic/testimonial/css/jquery.bxslider.css</stylesheet></action>
+        </reference>
+        <reference name="top.links">    
+            <action method="addLink" translate="label title" module="testimonial" ifconfig="testimonialsection/testisettings/enabletoplinks">
+                <label helper="testimonial/getTitle"/>
+                <url helper="testimonial/getTestimonialUrl"/>
+                <title helper="testimonial/getTitle"/>
+                <prepare/>
+                <urlParams/>
+                <position>200</position>
+                <liParams/>
+                <aParams>class='testimonial-top-link'</aParams>
+            </action>
+        </reference>
+         <reference name="footer_links">
+            <action method="addLink" translate="label title"  ifconfig="testimonialsection/testisettings/footerlinks">
+               <label helper="testimonial/getTitle"/>
+                <url helper="testimonial/getTestimonialUrl"/>
+                <title helper="testimonial/getTitle"/>
+                <prepare/>
+                <urlParams/>
+                <position>2</position>
+                <liParams/>
+                <aParams>class='testimonial-footer-link'</aParams>
+            </action>
+          </reference>
+    </default>
+    <testimonial_index_index>
+        <label>Testimonials</label>
+        <reference name="head">
+            <action method="setTitle"><title>Testimonials</title></action> 
+                <action method="addJs" ifconfig="testimonialsection/testisettings/activetesty"><script>testimonial/jquery.fancybox.js</script></action>
+                <action method="addCss" ifconfig="testimonialsection/testisettings/activetesty"><stylesheet>inic/testimonial/css/jquery.fancybox.css</stylesheet></action>           
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="testimonial/testimonial" name="testimonials">
+                 <action method="setTemplate" ifconfig="testimonialsection/testisettings/active">
+                    <template>inic/testimonial/testimonials.phtml</template>
+                  </action>
+            </block>
+        </reference>
+    </testimonial_index_index>
+</layout>

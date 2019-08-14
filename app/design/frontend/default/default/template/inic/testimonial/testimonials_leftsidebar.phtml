@@ -1,0 +1,65 @@
+<?php $testimonials = $this->getTestimonials();
+$helper = Mage::helper('testimonial');
+ ?>
+<?php $i = 0;?>
+<?php if (count($testimonials) > 0): ?>
+<!--Testimonial Start-->
+                <div class="block block-testimonial">
+                    <div class="block-title"><strong><?php  echo $this->htmlEscape($this->helper('testimonial')->getFeaturedTitle()) ?></strong></div>
+                    <div class="block-content testimonial-container">
+                            <div class="testimonial-slider-left cf">
+                            <?php foreach ($testimonials as $testimonial): ?>
+                                <div class="slide">
+                                    <div class="testimonial-content">
+                                    <div class="quote"><p class="qut-text"><?php echo $testimonial->getTestimonialText(); ?></p></div>
+                                        
+                                        </div>
+                                   <div class="sidebar_testy">
+                                    <?php  if($helper->isEnableContactName()):?>   
+                                    <p class="name_featured_testimonials"><?php echo $testimonial->getTestimonialName(); ?></p>
+                                    <?php endif;?>
+                                   <?php  if($helper->isEnableContactEmail()):?>
+                                            <p class="sub_title_featured_testimonials"><?php echo $testimonial->getTestimonialEmail(); ?></p>
+                                    <?php endif;?>  
+                                  <?php  if($helper->isEnableCompanyname()): ?>
+                                                     <p class="sub_title_featured_testimonials"><?php echo $testimonial->getTestimonialCompanyname(); ?></p> 
+                                              <?php endif;?>
+                                       <?php  if($helper->isEnableContactAddress()):?>
+                                                     <p class="sub_title_featured_testimonials"><?php echo $testimonial->getTestimonialAddress(); ?></p> 
+                                     <?php endif;?>
+                                     </div>
+                                     
+                                </div>
+                                <?php endforeach; ?>
+                               
+                        </div>
+                    </div>
+                     <p class="view-all"><a href="<?php echo $helper->getTestimonialUrl()?>" title="<?php echo $this->__('View All')?>"><?php echo $this->__('View All')?></a></p>
+                </div>
+                <!--Testimonial End-->
+
+<?php endif;  ?>
+
+
+<?php   $configSliderValue = Mage::getStoreConfig('testimonialsection/testyblock/enableslider');?>
+<?php if (count($testimonials) > 1 && $configSliderValue== 1 ): ?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery('.testimonial-slider-left').bxSlider({
+        controls:false,
+        pager:false,
+        auto:true,
+        adaptiveHeight:true,
+        pause:5000,
+        autoHover:true,
+        slideWidth: 200,
+        minSlides: 1,
+        maxSlides: 1,
+        onSlideBefore: function(){
+        jQuery(".testimonial-slider > div").css({width:"186px"})
+     
+        }
+      });
+});
+</script>
+<?php endif;  ?>
