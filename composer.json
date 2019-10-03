@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/inic_testimonial",
+    "name": "OpenMageModuleFostering\/inic_testimonial",
     "type": "magento-module",
     "license": "OSL-v3.0",
     "homepage": "",
     "description": "A great component allows your customers to write statement of truth for services or products.",
     "authors": [
-    {
-        "name": "Enquiry Indianic",
-        "email": "enquiry@indianic.com"
-    }
-],
+        {
+            "name": "Enquiry Indianic",
+            "email": "enquiry@indianic.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
